@@ -8,12 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(InstrumentController.self) private var controller
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            PadView(pad: .rIndex)
+            PadView(pad: .rMiddle)
+            PadView(pad: .rRing)
+            Divider()
+            PadView(pad: .lIndex)
+            PadView(pad: .lMiddle)
+            PadView(pad: .lRing)
+            Spacer()
+            PadView(pad: .lPinkyTop)
+            PadView(pad: .lPinkyBottom)
+
+            Text(controller.pads.name)
+
+            Button(action: {
+                controller.isAdvertising ?
+                controller.stopAdvertising() :
+                controller.startAdvertising()
+            }) {
+                Image(systemName: controller.isAdvertising ? "stop.circle.fill" : "play.circle.fill")
+            }
         }
         .padding()
     }
@@ -21,4 +39,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(InstrumentController())
 }

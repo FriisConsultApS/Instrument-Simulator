@@ -13,5 +13,6 @@ struct Instrument_SimulatorApp: App {
         WindowGroup {
             ContentView()
         }
+        .environment(InstrumentController())
     }
 }
